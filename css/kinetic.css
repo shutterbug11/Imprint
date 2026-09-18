@@ -1,0 +1,937 @@
+/* ==========================================================================
+   KINETIC PURPLE — Brutalist Design System
+   High-impact typography, strict 3-color palette, continuous motion.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --c-purple: #4A3FD1;
+  --c-black: #000000;
+  --c-white: #FFFFFF;
+  --c-white-80: rgba(255, 255, 255, 0.8);
+  --c-white-20: rgba(255, 255, 255, 0.2);
+  --c-white-05: rgba(255, 255, 255, 0.05);
+
+  --font-display: 'Archivo Black', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  --border-thick: 2px solid var(--c-black);
+  --border-subtle: 1px solid var(--c-white-20);
+}
+
+/* --------------------------------------------------------------------------
+   RESET & GLOBAL RULES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background-color: var(--c-black);
+  color: var(--c-black);
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  background-color: var(--c-purple);
+  line-height: 1.5;
+}
+
+/* Brutalist Selection Color */
+::selection {
+  background: var(--c-black);
+  color: var(--c-purple);
+}
+
+::-moz-selection {
+  background: var(--c-black);
+  color: var(--c-purple);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* --------------------------------------------------------------------------
+   FLOATING NAVIGATION
+   -------------------------------------------------------------------------- */
+.kinetic-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  pointer-events: none;
+}
+
+.kinetic-nav > * {
+  pointer-events: auto;
+}
+
+/* Brand Logo */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-logo-box {
+  display: inline-flex;
+  align-items: center;
+  background: var(--c-black);
+  padding: 0.35rem 0.85rem;
+  border: var(--border-thick);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+}
+
+.brand-logo-box:hover {
+  transform: translate(-2px, -2px);
+  background: #181644;
+}
+
+.brand-logo-img {
+  height: 30px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.brand-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--c-black);
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--c-black);
+}
+
+/* Floating Center Pill Container */
+.nav-pill-wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: var(--c-black);
+  border-radius: 9999px;
+  padding: 0.35rem 0.5rem;
+  border: var(--border-thick);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.nav-pill-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--c-white);
+  padding: 0.5rem 1.1rem;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+
+/* Links transition to black text on white background on hover */
+.nav-pill-link:hover {
+  background: var(--c-white);
+  color: var(--c-black);
+}
+
+/* Right Navigation Actions */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--c-black);
+  color: var(--c-white);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  border: var(--border-thick);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #00FF66;
+  box-shadow: 0 0 8px #00FF66;
+}
+
+.nav-cta-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  background: var(--c-white);
+  color: var(--c-black);
+  padding: 0.55rem 1.25rem;
+  border-radius: 9999px;
+  border: var(--border-thick);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-cta-btn:hover {
+  transform: scale(1.08);
+  background: var(--c-black);
+  color: var(--c-purple);
+}
+
+/* --------------------------------------------------------------------------
+   TYPOGRAPHIC HERO SECTION
+   Fullscreen header, primary bg #4A3FD1, deep black #000000 text
+   -------------------------------------------------------------------------- */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--c-purple);
+  color: var(--c-black);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 6.5rem;
+  border-bottom: var(--border-thick);
+  overflow: hidden;
+}
+
+.hero-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem 1rem 1.5rem;
+  position: relative;
+}
+
+.hero-tagline {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.4vw, 1.15rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  background: var(--c-black);
+  color: var(--c-purple);
+  padding: 0.4rem 1rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+/* Main headline: Archivo Black, uppercase, tracking -0.04em, line-height 0.85-0.9 */
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 8.5vw, 8.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  color: var(--c-black);
+  user-select: none;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  word-break: normal;
+  transition: transform 0.3s ease;
+}
+
+.hero-subhead {
+  margin-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.9rem, 1.6vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--c-black);
+  max-width: 800px;
+}
+
+/* 2px black horizontal border separates hero from metadata row */
+.hero-divider {
+  width: 100%;
+  height: 2px;
+  background-color: var(--c-black);
+}
+
+/* Metadata Row: Based in... (left), Rotating Circular Scroll Down (center), Role/Spec (right) */
+.hero-metadata-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 1.75rem 2.5rem;
+  gap: 2rem;
+  background-color: var(--c-purple);
+}
+
+.meta-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--c-black);
+  opacity: 0.75;
+}
+
+.meta-value {
+  font-family: var(--font-mono);
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--c-black);
+}
+
+.meta-col-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meta-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: right;
+  align-items: flex-end;
+}
+
+/* --------------------------------------------------------------------------
+   ROTATING SCROLL INDICATOR (144px Diameter Circle)
+   SVG textPath rotating 360deg over 12s with static arrow in center
+   -------------------------------------------------------------------------- */
+.scroll-indicator-container {
+  position: relative;
+  width: 144px;
+  height: 144px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.scroll-indicator-svg {
+  width: 144px;
+  height: 144px;
+  animation: spin-12s 12s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes spin-12s {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.scroll-text-path {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  fill: var(--c-black);
+}
+
+.scroll-indicator-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background-color: var(--c-black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-white);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
+  z-index: 2;
+}
+
+.scroll-indicator-center svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5;
+  transition: transform 0.2s ease;
+}
+
+.scroll-indicator-container:hover .scroll-indicator-center {
+  transform: translate(-50%, -50%) scale(1.15);
+  background-color: var(--c-white);
+  color: var(--c-black);
+}
+
+.scroll-indicator-container:hover .scroll-indicator-center svg {
+  transform: translateY(3px);
+}
+
+/* --------------------------------------------------------------------------
+   SKEWED MARQUEE SECTION
+   Full-width, background #000000, skewed at -2deg.
+   Row 1: #4A3FD1 text in Archivo Black, 10vw.
+   Row 2: White text with 80% opacity, reverse scrolling.
+   -------------------------------------------------------------------------- */
+.marquee-wrapper-outer {
+  position: relative;
+  background-color: var(--c-purple);
+  padding: 6rem 0;
+  overflow: hidden;
+  border-bottom: var(--border-thick);
+}
+
+.marquee-skew-container {
+  background-color: var(--c-black);
+  transform: skewY(-2deg) scale(1.05);
+  padding: 3.5rem 0;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-top: var(--border-thick);
+  border-bottom: var(--border-thick);
+}
+
+.marquee-row {
+  display: flex;
+  width: fit-content;
+  white-space: nowrap;
+  user-select: none;
+  overflow: hidden;
+}
+
+.marquee-content-left {
+  display: flex;
+  gap: 2rem;
+  animation: marquee-left 24s linear infinite;
+}
+
+.marquee-content-right {
+  display: flex;
+  gap: 2rem;
+  animation: marquee-right 28s linear infinite;
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.marquee-item {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 8.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Row 1: Soft lavender/purple (#4A3FD1) in Archivo Black */
+.marquee-row-1 .marquee-item {
+  color: var(--c-purple);
+}
+
+/* Row 2: Pure White text with 80% opacity */
+.marquee-row-2 .marquee-item {
+  color: var(--c-white-80);
+}
+
+.marquee-dot {
+  display: inline-block;
+  width: clamp(1rem, 2vw, 1.75rem);
+  height: clamp(1rem, 2vw, 1.75rem);
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   VERTICAL SERVICE LIST SECTION
+   Dark section: background #000000, text #FFFFFF.
+   Separated by 1px white/20% borders.
+   -------------------------------------------------------------------------- */
+.services-section {
+  position: relative;
+  background-color: var(--c-black);
+  color: var(--c-white);
+  padding: 7rem 2.5rem;
+  border-bottom: var(--border-thick);
+}
+
+.services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4.5rem;
+  border-bottom: 2px solid var(--c-white);
+  padding-bottom: 2rem;
+}
+
+.services-header-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--c-white);
+}
+
+.services-header-meta {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--c-purple);
+  text-align: right;
+}
+
+/* Brutalist Service Cards List */
+.services-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.service-card {
+  width: 100%;
+  border-top: var(--border-subtle);
+  padding: 3rem 1.5rem;
+  display: grid;
+  grid-template-columns: 140px 1fr 80px;
+  align-items: center;
+  gap: 2rem;
+  background: transparent;
+  transition: background-color 0.25s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:last-child {
+  border-bottom: var(--border-subtle);
+}
+
+/* Leading index: Space Mono in #4A3FD1 */
+.service-index {
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 700;
+  color: var(--c-purple);
+  letter-spacing: -0.02em;
+  align-self: flex-start;
+  padding-top: 0.5rem;
+}
+
+.service-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Large uppercase title: Archivo Black, 7vw */
+.service-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 7vw, 5.75rem);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  color: var(--c-white);
+}
+
+/* Row of pill-shaped tags */
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.service-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--c-white-80);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid var(--c-white-20);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Arrow Icon: hidden/opacity 0 initially, reveals at 45deg in #4A3FD1 */
+.service-arrow-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.service-arrow {
+  width: 48px;
+  height: 48px;
+  color: var(--c-purple);
+  opacity: 0;
+  transform: rotate(0deg) scale(0.7);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* HOVER INTERACTIONS:
+   - Background shifts to white/5% opacity
+   - Title translates +16px horizontally (translate-x-4)
+   - Arrow opacity becomes 1 and rotates 45deg
+*/
+.service-card:hover {
+  background-color: var(--c-white-05);
+}
+
+.service-card:hover .service-body {
+  transform: translateX(16px);
+}
+
+.service-card:hover .service-tag {
+  background: var(--c-purple);
+  color: var(--c-black);
+  border-color: var(--c-purple);
+}
+
+.service-card:hover .service-arrow {
+  opacity: 1;
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   GIANT CTA SECTION
+   Centered CTA with 14vw heading, large rounded-full button with scale-110
+   -------------------------------------------------------------------------- */
+.cta-section {
+  position: relative;
+  background-color: var(--c-purple);
+  color: var(--c-black);
+  padding: 9rem 2rem 8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cta-tag {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  background: var(--c-black);
+  color: var(--c-white);
+  padding: 0.4rem 1.1rem;
+  margin-bottom: 2rem;
+  border-radius: 9999px;
+}
+
+.cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 14vw, 13rem);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.86;
+  color: var(--c-black);
+  margin-bottom: 3.5rem;
+  max-width: 1400px;
+}
+
+/* Large rounded-full button (#000000 bg, white text) that scales up on hover (scale-110) */
+.cta-btn-giant {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  background-color: var(--c-black);
+  color: var(--c-white);
+  font-family: var(--font-mono);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  padding: 1.5rem 3.5rem;
+  border-radius: 9999px;
+  border: var(--border-thick);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+}
+
+.cta-btn-giant:hover {
+  transform: scale(1.1);
+  background-color: var(--c-white);
+  color: var(--c-black);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+.cta-btn-arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.25s ease;
+}
+
+.cta-btn-giant:hover .cta-btn-arrow {
+  transform: translate(6px, -6px);
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   Separated by 2px black top border, copyright & horizontal social links in Space Mono 12px
+   -------------------------------------------------------------------------- */
+.kinetic-footer {
+  background-color: var(--c-purple);
+  color: var(--c-black);
+  border-top: var(--border-thick);
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.footer-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.footer-logo-img {
+  height: 28px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  background: var(--c-black);
+  padding: 0.25rem 0.5rem;
+  border: var(--border-thick);
+}
+
+.footer-logo-sub {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: var(--c-black);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--c-black);
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.footer-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--c-black);
+  transition: width 0.2s ease;
+}
+
+.footer-link:hover::after {
+  width: 100%;
+}
+
+.footer-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  padding-top: 1.5rem;
+}
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--c-black);
+  opacity: 0.85;
+}
+
+.footer-spec {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--c-black);
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE MEDIA QUERIES
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .kinetic-nav {
+    padding: 1rem 1.5rem;
+  }
+  
+  .nav-pill-wrapper {
+    position: static;
+    transform: none;
+  }
+
+  .nav-actions .status-pill {
+    display: none;
+  }
+
+  .hero-metadata-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .meta-col-left, .meta-col-right {
+    text-align: center;
+    align-items: center;
+  }
+
+  .service-card {
+    grid-template-columns: 80px 1fr 50px;
+    gap: 1.5rem;
+    padding: 2.5rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .kinetic-nav {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    background: rgba(74, 63, 209, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: var(--border-thick);
+    pointer-events: auto;
+  }
+
+  .nav-pill-wrapper {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+    justify-content: center;
+  }
+
+  .nav-pill {
+    margin: 0 auto;
+  }
+
+  .service-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .service-arrow-wrapper {
+    justify-content: flex-start;
+  }
+
+  .service-arrow {
+    opacity: 1;
+    transform: rotate(45deg);
+  }
+
+  .cta-section {
+    padding: 6rem 1.5rem 5rem 1.5rem;
+  }
+
+  .cta-btn-giant {
+    width: 100%;
+    justify-content: center;
+    padding: 1.25rem 2rem;
+  }
+
+  .footer-top-row, .footer-bottom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+}

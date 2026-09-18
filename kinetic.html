@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KINETIC PURPLE — High-Impact Digital Brutalism</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Kinetic Purple is a high-impact, digital-first brutalist web experience powered by heavy Archivo Black typography, sharp geometric grids, continuous marquees, and technical precision.">
+  <meta name="theme-color" content="#4A3FD1">
+  
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  
+  <!-- Kinetic CSS -->
+  <link rel="stylesheet" href="css/kinetic.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       FLOATING NAVIGATION
+       Fixed top navigation with brand logo on left, floating pill center, social/actions right
+       ======================================================================== -->
+  <header class="kinetic-nav">
+    <div class="nav-brand">
+      <a href="/kinetic" class="brand-logo-box" id="nav-brand-logo" aria-label="Imprint Logo">
+        <img src="assets/imprint-logo-clean.png" alt="Imprint" class="brand-logo-img">
+      </a>
+      <span class="brand-tag">v2.4 // KINETIC</span>
+    </div>
+
+    <!-- Floating Center Pill Container (background #000000, rounded-full) -->
+    <nav class="nav-pill-wrapper" aria-label="Main Navigation">
+      <div class="nav-pill">
+        <a href="#hero" class="nav-pill-link">INDEX</a>
+        <a href="#marquee" class="nav-pill-link">MANIFESTO</a>
+        <a href="#services" class="nav-pill-link">SERVICES</a>
+        <a href="#cta" class="nav-pill-link">DISPATCH</a>
+        <a href="/studio" class="nav-pill-link">STUDIO ↗</a>
+      </div>
+    </nav>
+
+    <div class="nav-actions">
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span>SYS // OPERATIONAL</span>
+      </div>
+      <a href="/studio" class="nav-cta-btn" id="nav-launch-btn">LAUNCH APP</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================================
+         TYPOGRAPHIC HERO SECTION
+         Primary bg #4A3FD1, deep black #000000 text, 16vw headline, metadata row
+         ====================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="hero-main">
+        <span class="hero-tagline">DIGITAL-FIRST BRUTALIST ENGINE // EST. 2026</span>
+        <h1 class="hero-headline">
+          YOU'VE EARNED IT,<br>NOW IMPRINT
+        </h1>
+        <p class="hero-subhead">HIGH-IMPACT AUTOMATION • UNCOMPROMISED PRECISION • NPU HARDWARE ACCELERATED</p>
+      </div>
+
+      <!-- 2px black horizontal border separates hero from metadata row -->
+      <div class="hero-divider"></div>
+
+      <!-- Metadata row: Based in... (left), Rotating Circular Scroll Down (center), Role/Spec (right) -->
+      <div class="hero-metadata-row">
+        <!-- Left: Based in... -->
+        <div class="meta-col-left">
+          <span class="meta-label">ORIGIN // LOCATION</span>
+          <span class="meta-value">BASED IN KOLKATA, IN</span>
+          <span class="meta-label" style="margin-top: 0.25rem;">COORDINATES // TIME</span>
+          <span class="meta-value" id="live-time">22.5726° N, 88.3639° E</span>
+        </div>
+
+        <!-- Center: Rotating circular 'Scroll Down' text indicator (144px diameter) -->
+        <div class="meta-col-center">
+          <a href="#marquee" class="scroll-indicator-container" aria-label="Scroll down to manifesto">
+            <svg class="scroll-indicator-svg" viewBox="0 0 144 144" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Circular path with radius ~52 for 144px box -->
+                <path id="scrollCirclePath" d="M 72, 72 m -52, 0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" />
+              </defs>
+              <text class="scroll-text-path">
+                <textPath href="#scrollCirclePath" startOffset="0%">
+                  SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • 
+                </textPath>
+              </text>
+            </svg>
+            <div class="scroll-indicator-center">
+              <!-- Static Arrow-Down Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="miter">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <!-- Right: Multi-line title / role / spec -->
+        <div class="meta-col-right">
+          <span class="meta-label">SYSTEM ARCHITECT</span>
+          <span class="meta-value">AGNIV GHOSH</span>
+          <span class="meta-label" style="margin-top: 0.25rem;">PIPELINE SPEC</span>
+          <span class="meta-value">SNAPDRAGON X / ONNX / EXPRESS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SKEWED MARQUEE SECTION
+         Full-width section, background #000000, skewed at -2deg.
+         Row 1: Soft lavender/purple (#4A3FD1) text in Archivo Black, 10vw.
+         Row 2: White text with 80% opacity, scrolling in reverse.
+         ====================================================================== -->
+    <section class="marquee-wrapper-outer" id="marquee">
+      <div class="marquee-skew-container">
+        
+        <!-- Row 1: Soft lavender/purple text (#4A3FD1) scrolling left -->
+        <div class="marquee-row marquee-row-1">
+          <div class="marquee-content-left">
+            <span class="marquee-item">RAPID DISPATCH <span class="marquee-dot"></span> ZERO LATENCY <span class="marquee-dot"></span> NPU PIPELINE <span class="marquee-dot"></span> MAXIMUM THROUGHPUT <span class="marquee-dot"></span></span>
+            <span class="marquee-item">RAPID DISPATCH <span class="marquee-dot"></span> ZERO LATENCY <span class="marquee-dot"></span> NPU PIPELINE <span class="marquee-dot"></span> MAXIMUM THROUGHPUT <span class="marquee-dot"></span></span>
+          </div>
+        </div>
+
+        <!-- Row 2: Pure White text with 80% opacity scrolling in reverse (right) -->
+        <div class="marquee-row marquee-row-2">
+          <div class="marquee-content-right">
+            <span class="marquee-item">AUTONOMOUS GENERATION <span class="marquee-dot"></span> DIRECT SMTP RELAY <span class="marquee-dot"></span> BRUTALIST PRECISION <span class="marquee-dot"></span> 2026 ARCHITECTURE <span class="marquee-dot"></span></span>
+            <span class="marquee-item">AUTONOMOUS GENERATION <span class="marquee-dot"></span> DIRECT SMTP RELAY <span class="marquee-dot"></span> BRUTALIST PRECISION <span class="marquee-dot"></span> 2026 ARCHITECTURE <span class="marquee-dot"></span></span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VERTICAL SERVICE LIST SECTION
+         Dark section (background #000000, text #FFFFFF).
+         Separated by 1px white/20% borders.
+         Interactive Brutalist Service Cards with hover reveal effects.
+         ====================================================================== -->
+    <section class="services-section" id="services">
+      <div class="services-header">
+        <h2 class="services-header-title">SYSTEM CAPABILITIES</h2>
+        <div class="services-header-meta">
+          <span>[ SPEC 04 / 04 ACTIVE ]</span><br>
+          <span>HARDWARE ACCELERATED</span>
+        </div>
+      </div>
+
+      <div class="services-list">
+        
+        <!-- Service Card 01 -->
+        <article class="service-card" tabindex="0">
+          <span class="service-index">01 //</span>
+          <div class="service-body">
+            <h3 class="service-title">BATCH CERTIFICATES</h3>
+            <div class="service-tags">
+              <span class="service-tag">DYNAMIC EXCEL PARSER</span>
+              <span class="service-tag">HTML5 CANVAS</span>
+              <span class="service-tag">HIGH RES ZIP</span>
+              <span class="service-tag">INSTANT EXPORT</span>
+            </div>
+          </div>
+          <div class="service-arrow-wrapper">
+            <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </article>
+
+        <!-- Service Card 02 -->
+        <article class="service-card" tabindex="0">
+          <span class="service-index">02 //</span>
+          <div class="service-body">
+            <h3 class="service-title">DIRECT SMTP RELAY</h3>
+            <div class="service-tags">
+              <span class="service-tag">ZERO LOG RETENTION</span>
+              <span class="service-tag">VARIABLE TEMPLATING</span>
+              <span class="service-tag">RATE PACING</span>
+              <span class="service-tag">CUSTOM AUTH</span>
+            </div>
+          </div>
+          <div class="service-arrow-wrapper">
+            <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </article>
+
+        <!-- Service Card 03 -->
+        <article class="service-card" tabindex="0">
+          <span class="service-index">03 //</span>
+          <div class="service-body">
+            <h3 class="service-title">DYNAMIC STUDIO</h3>
+            <div class="service-tags">
+              <span class="service-tag">DRAG-AND-DROP CANVAS</span>
+              <span class="service-tag">20+ TYPOGRAPHIES</span>
+              <span class="service-tag">PER-ROW OVERRIDES</span>
+              <span class="service-tag">TOUCH OPTIMIZED</span>
+            </div>
+          </div>
+          <div class="service-arrow-wrapper">
+            <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </article>
+
+        <!-- Service Card 04 -->
+        <article class="service-card" tabindex="0">
+          <span class="service-index">04 //</span>
+          <div class="service-body">
+            <h3 class="service-title">QUALCOMM OCR AI</h3>
+            <div class="service-tags">
+              <span class="service-tag">SNAPDRAGON X ELITE</span>
+              <span class="service-tag">QNN EXECUTION PROVIDER</span>
+              <span class="service-tag">HEXAGON NPU</span>
+              <span class="service-tag">AUTO-BOUNDING BOX</span>
+            </div>
+          </div>
+          <div class="service-arrow-wrapper">
+            <svg class="service-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         GIANT CTA SECTION
+         Centered CTA with 14vw heading, large rounded-full button with scale-110
+         ====================================================================== -->
+    <section class="cta-section" id="cta">
+      <span class="cta-tag">READY FOR PRODUCTION</span>
+      <h2 class="cta-heading">START GENERATING</h2>
+      <a href="/studio" class="cta-btn-giant" id="cta-launch-link">
+        <span>LAUNCH CERTIFICATE STUDIO</span>
+        <svg class="cta-btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+          <line x1="7" y1="17" x2="17" y2="7"></line>
+          <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+      </a>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       BRUTALIST FOOTER
+       Separated by 2px black top border, copyright & horizontal social links in Space Mono 12px
+       ======================================================================== -->
+  <footer class="kinetic-footer">
+    <div class="footer-top-row">
+      <div class="footer-brand-wrap">
+        <img src="assets/imprint-logo-clean.png" alt="Imprint" class="footer-logo-img">
+        <span class="footer-logo-sub">// KINETIC PURPLE</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/shutterbug11/Smartomate" target="_blank" rel="noopener noreferrer" class="footer-link">GITHUB</a>
+        <a href="https://www.linkedin.com/in/agniv-ghosh-9b5881289/" target="_blank" rel="noopener noreferrer" class="footer-link">LINKEDIN</a>
+        <a href="/studio" class="footer-link">STUDIO</a>
+      </div>
+    </div>
+    <div class="footer-bottom-row">
+      <p class="footer-copy">© 2026 IMPRINT • ALL RIGHTS RESERVED • ARCHITECTED BY AGNIV GHOSH</p>
+      <p class="footer-spec">CORE ENGINE // 4A3FD1 KINETIC BRUTALISM</p>
+    </div>
+  </footer>
+
+  <!-- Kinetic JS -->
+  <script src="js/kinetic.js"></script>
+</body>
+</html>

@@ -11,6 +11,7 @@ app.use(express.static(path.join(__dirname)));
 app.get('/app', (req, res) => res.sendFile(path.join(__dirname, 'app.html')));
 app.get('/studio', (req, res) => res.sendFile(path.join(__dirname, 'studio.html')));
 app.get('/landing', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/kinetic', (req, res) => res.sendFile(path.join(__dirname, 'kinetic.html')));
 
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000';
 
