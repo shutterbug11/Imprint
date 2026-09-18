@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#685DEF"/>
+  <!-- Centered dark capsule: width 20, height 50 -->
+  <g transform="translate(22, 7) scale(0.24, 0.222)">
+    <rect width="83" height="225" rx="10" fill="#181644"/>
+    <polygon points="41.5,27 27,49 55,49" fill="#FFFFFF"/>
+    <rect x="27" y="59" width="28" height="128" rx="2" fill="#FFFFFF"/>
+  </g>
+</svg>

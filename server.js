@@ -8,6 +8,42 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.static(path.join(__dirname)));
 
+app.get('/app', (req, res) => res.sendFile(path.join(__dirname, 'app.html')));
+app.get('/studio', (req, res) => res.sendFile(path.join(__dirname, 'studio.html')));
+app.get('/landing', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+
+const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000';
+
+// POST /api/detect-fields — forward template image to Qualcomm EasyOCR AI service
+app.post('/api/detect-fields', async (req, res) => {
+  const { image } = req.body;
+  if (!image) {
+    return res.status(400).json({ error: 'Image data is required' });
+  }
+
+  try {
+    const aiRes = await fetch(`${AI_SERVICE_URL}/detect-fields`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image })
+    });
+
+    if (!aiRes.ok) {
+      const errText = await aiRes.text();
+      return res.status(aiRes.status).json({ error: `AI service error: ${errText}` });
+    }
+
+    const data = await aiRes.json();
+    res.json(data);
+  } catch (err) {
+    console.error('Field detection proxy error:', err.message);
+    res.status(502).json({
+      error: 'Could not connect to Qualcomm EasyOCR AI service at ' + AI_SERVICE_URL + '. Ensure ai-service is running.',
+      details: err.message
+    });
+  }
+});
+
 // POST /api/test-smtp  — verify credentials without sending
 app.post('/api/test-smtp', async (req, res) => {
   const { smtp } = req.body;

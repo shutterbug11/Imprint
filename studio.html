@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imprint — Certificate Studio</title>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon-branded.png" />
+
+  <!-- Google Fonts: Inter & JetBrains/Geist Mono + Curated Handwriting & Serif Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Great+Vibes&family=Cinzel:wght@500;700&family=Cormorant+Garamond:wght@400;600;700&family=Space+Grotesk:wght@500;700&family=Dancing+Script:wght@600;700&family=Alex+Brush&family=Allura&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/studio.css" />
+
+  <!-- SheetJS for Excel/CSV parsing & JSZip/FileSaver for bulk zips -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+</head>
+<body>
+
+  <div class="studio-layout">
+
+    <!-- ── Left Sidebar Navigation ───────────────────────── -->
+    <aside class="studio-sidebar">
+      <!-- Brand -->
+      <div class="sidebar-brand">
+        <a href="/" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+          <div class="brand-icon-wrap">
+            <svg width="12" height="24" viewBox="0 0 83 225" fill="none">
+              <polygon points="41.5,27 27,49 55,49" fill="#FFFFFF"/>
+              <rect x="27" y="59" width="28" height="128" rx="1" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <span class="brand-title">Imprint</span>
+        </a>
+      </div>
+
+      <!-- Hardware Status Card -->
+      <div class="hardware-card">
+        <div class="hw-header">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+            <rect x="9" y="9" width="6" height="6"></rect>
+            <line x1="9" y1="1" x2="9" y2="4"></line>
+            <line x1="15" y1="1" x2="15" y2="4"></line>
+            <line x1="9" y1="20" x2="9" y2="23"></line>
+            <line x1="15" y1="20" x2="15" y2="23"></line>
+            <line x1="20" y1="9" x2="23" y2="9"></line>
+            <line x1="20" y1="14" x2="23" y2="14"></line>
+            <line x1="1" y1="9" x2="4" y2="9"></line>
+            <line x1="1" y1="14" x2="4" y2="14"></line>
+          </svg>
+          <span>HARDWARE STATUS</span>
+        </div>
+        <div class="hw-title">Snapdragon NPU</div>
+        <div class="hw-meta">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>100% Local Processing</span>
+        </div>
+      </div>
+
+      <!-- Nav Items -->
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="template-studio" id="navTemplateStudio">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="M3 9h18"></path>
+            <path d="M9 21V9"></path>
+          </svg>
+          <span>Template Studio</span>
+        </button>
+
+        <button class="nav-item" data-tab="recipients" id="navRecipients">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Recipients</span>
+        </button>
+
+        <button class="nav-item" data-tab="generate-send" id="navGenerateSend">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span>Generate &amp; Send</span>
+        </button>
+
+        <button class="nav-item" data-tab="settings" id="navSettings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <span>App v1.0.4 (Local)</span>
+        <span class="offline-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+            <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+            <line x1="12" y1="20" x2="12.01" y2="20"></line>
+          </svg>
+          Offline Mode
+        </span>
+      </div>
+    </aside>
+
+    <!-- ── Main Content Area ─────────────────────────────── -->
+    <div class="studio-main">
+
+      <!-- Top Bar -->
+      <header class="studio-topbar">
+        <div class="topbar-left">
+          <h2 class="topbar-title" id="topbarTitle">Certificate of Achievement</h2>
+          <span class="topbar-pill" id="topbarPill">1920 x 1080 px</span>
+        </div>
+
+        <div class="topbar-actions" id="topbarActions">
+          <a href="/" class="btn-secondary" title="Return to Landing Overview">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Overview</span>
+          </a>
+
+          <!-- Contextual Action Buttons -->
+          <div id="tabActionsTemplateStudio" style="display:flex; align-items:center; gap:8px;">
+            <button class="btn-secondary" id="btnPreviewToggle">Preview</button>
+            <button class="btn-primary" id="btnSaveTemplate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              <span>Save Template</span>
+            </button>
+          </div>
+
+          <div id="tabActionsRecipients" style="display:none;">
+            <button class="btn-primary" id="btnExportData">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export Data</span>
+            </button>
+          </div>
+
+          <div id="tabActionsGenerateSend" style="display:none;">
+            <button class="btn-primary" id="btnExportLog">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export Log</span>
+            </button>
+          </div>
+
+          <div id="tabActionsSettings" style="display:none;">
+            <button class="btn-primary" id="btnApplySettings">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>Apply Changes</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 1: TEMPLATE STUDIO
+           ══════════════════════════════════════════════════════ -->
+      <section class="tab-content active" id="tab-template-studio">
+        <div class="template-studio-wrapper">
+
+          <!-- Auto-Detect Placeholder Fields Banner -->
+          <div class="ai-detect-banner">
+            <div class="ai-detect-left">
+              <div class="ai-detect-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 7V4h3"></path>
+                  <path d="M20 7V4h-3"></path>
+                  <path d="M4 17v3h3"></path>
+                  <path d="M20 17v3h-3"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </div>
+              <div class="ai-detect-text">
+                <h4>Auto-Detect Placeholder Fields</h4>
+                <p>Scan uploaded background image for text like [NAME] to place fields automatically.</p>
+              </div>
+            </div>
+
+            <div class="ai-detect-right">
+              <span class="pill-npu">EasyOCR • Snapdragon NPU</span>
+              <button class="btn-pill-action" id="runEasyOcrBtn">Run Detection</button>
+            </div>
+          </div>
+
+          <!-- Generate Background with AI Prompt Bar -->
+          <div class="ai-bg-generator-bar">
+            <span class="pill-npu" style="background:#f1f5f9; color:#475569;">Stable Diffusion • On-device</span>
+            <input type="text" class="ai-bg-prompt-input" id="aiBgPromptInput" placeholder="e.g. Elegant corporate certificate border with modern geometric gold patterns..." />
+            <button class="btn-primary" style="padding:7px 14px; font-size:12.5px;" id="btnAiGenerateBg">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+              </svg>
+              <span>Generate</span>
+            </button>
+          </div>
+
+          <!-- Studio Workspace Grid (Canvas + Properties) -->
+          <div class="studio-workspace-grid">
+
+            <!-- Center Canvas Frame -->
+            <div class="canvas-container" id="canvasContainer">
+              <div class="canvas-checkerboard"></div>
+
+              <!-- Certificate Canvas Frame -->
+              <div class="certificate-canvas-frame" id="certificateCanvasFrame">
+                <canvas id="previewCanvas" width="1920" height="1080"></canvas>
+
+                <!-- Empty State Uploader -->
+                <div class="canvas-empty-state" id="canvasEmptyState">
+                  <div class="empty-state-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                  </div>
+                  <div class="empty-state-title">Drop Certificate Template</div>
+                  <div class="empty-state-sub">Drag &amp; drop background image or click to browse (JPG, PNG, WebP)</div>
+                  <input type="file" id="templateFileInput" accept="image/*" style="display:none;" />
+                </div>
+              </div>
+
+              <!-- Zoom Controls -->
+              <div class="zoom-widget">
+                <button class="zoom-btn" id="zoomOutBtn" title="Zoom Out">−</button>
+                <span class="zoom-level" id="zoomLevelLbl">65%</span>
+                <button class="zoom-btn" id="zoomInBtn" title="Zoom In">+</button>
+              </div>
+            </div>
+
+            <!-- Right Sidebar: Field Properties -->
+            <aside class="properties-panel" id="propertiesPanel">
+              <div class="props-header">
+                <span class="props-title">Field Properties</span>
+                <button class="props-delete-btn" id="btnDeleteField" title="Delete Field">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Data Column Dropdown -->
+              <div class="prop-group">
+                <label class="prop-label">Data Column (CSV/Excel)</label>
+                <select class="prop-select" id="fieldColumnSelect">
+                  <option value="Recipient_Name">Recipient_Name</option>
+                  <option value="Issue_Date">Issue_Date</option>
+                  <option value="Course_Title">Course_Title</option>
+                  <option value="Grade">Grade</option>
+                  <option value="Certificate_ID">Certificate_ID</option>
+                </select>
+              </div>
+
+              <!-- Fallback Text -->
+              <div class="prop-group">
+                <label class="prop-label">Fallback Text</label>
+                <input type="text" class="prop-input" id="fallbackTextInput" value="Valued Participant" />
+                <span class="prop-hint">Used if data cell is empty.</span>
+              </div>
+
+              <!-- Layout (2x2 Grid) -->
+              <div class="prop-group">
+                <label class="prop-label">LAYOUT</label>
+                <div class="layout-2x2">
+                  <div class="layout-item">
+                    <label>X Position</label>
+                    <div class="input-with-unit">
+                      <input type="number" class="prop-input" id="fieldPosX" value="960" />
+                      <span class="unit-label">px</span>
+                    </div>
+                  </div>
+                  <div class="layout-item">
+                    <label>Y Position</label>
+                    <div class="input-with-unit">
+                      <input type="number" class="prop-input" id="fieldPosY" value="540" />
+                      <span class="unit-label">px</span>
+                    </div>
+                  </div>
+                  <div class="layout-item">
+                    <label>Width</label>
+                    <div class="input-with-unit">
+                      <input type="number" class="prop-input" id="fieldWidth" value="600" />
+                      <span class="unit-label">px</span>
+                    </div>
+                  </div>
+                  <div class="layout-item">
+                    <label>Height</label>
+                    <div class="input-with-unit">
+                      <input type="number" class="prop-input" id="fieldHeight" value="80" />
+                      <span class="unit-label">px</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Typography -->
+              <div class="prop-group">
+                <label class="prop-label">TYPOGRAPHY</label>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <!-- Font Family -->
+                  <div>
+                    <label style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px;">Font Family</label>
+                    <select class="prop-select" id="fontFamilySelect">
+                      <option value="'Playfair Display', serif">Playfair Display</option>
+                      <option value="'Great Vibes', cursive">Great Vibes</option>
+                      <option value="'Cinzel', serif">Cinzel</option>
+                      <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
+                      <option value="'Dancing Script', cursive">Dancing Script</option>
+                      <option value="'Alex Brush', cursive">Alex Brush</option>
+                      <option value="'Allura', cursive">Allura</option>
+                      <option value="'Inter', sans-serif">Inter</option>
+                      <option value="'Space Grotesk', sans-serif">Space Grotesk</option>
+                      <option value="'Geist Mono', monospace">Geist Mono</option>
+                    </select>
+                  </div>
+
+                  <!-- Weight & Size -->
+                  <div class="layout-2x2">
+                    <div class="layout-item">
+                      <label>Weight</label>
+                      <select class="prop-select" id="fontWeightSelect">
+                        <option value="normal">Regular</option>
+                        <option value="bold" selected>Bold</option>
+                        <option value="600">SemiBold</option>
+                      </select>
+                    </div>
+                    <div class="layout-item">
+                      <label>Size</label>
+                      <div class="input-with-unit">
+                        <input type="number" class="prop-input" id="fontSizeInput" value="64" />
+                        <span class="unit-label">pt</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Alignment 3-Segment Toggle -->
+                  <div>
+                    <label style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px;">Alignment</label>
+                    <div class="align-toggle-group">
+                      <button class="align-toggle-btn" data-align="left">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <line x1="17" y1="10" x2="3" y2="10"></line>
+                          <line x1="21" y1="6" x2="3" y2="6"></line>
+                          <line x1="21" y1="14" x2="3" y2="14"></line>
+                          <line x1="17" y1="18" x2="3" y2="18"></line>
+                        </svg>
+                      </button>
+                      <button class="align-toggle-btn active" data-align="center">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <line x1="18" y1="10" x2="6" y2="10"></line>
+                          <line x1="21" y1="6" x2="3" y2="6"></line>
+                          <line x1="21" y1="14" x2="3" y2="14"></line>
+                          <line x1="18" y1="18" x2="6" y2="18"></line>
+                        </svg>
+                      </button>
+                      <button class="align-toggle-btn" data-align="right">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <line x1="21" y1="10" x2="7" y2="10"></line>
+                          <line x1="21" y1="6" x2="3" y2="6"></line>
+                          <line x1="21" y1="14" x2="3" y2="14"></line>
+                          <line x1="21" y1="18" x2="7" y2="18"></line>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Color Swatch & Hex -->
+                  <div>
+                    <label style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px;">Color</label>
+                    <div class="color-picker-row">
+                      <input type="color" class="color-swatch" id="fontColorInput" value="#1E293B" />
+                      <input type="text" class="prop-input" id="fontColorHexInput" value="#1E293B" style="font-family:var(--font-mono); text-transform:uppercase;" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add New Field Button -->
+              <button class="btn-add-field" id="btnAddFieldBtn">+ Add New Field</button>
+            </aside>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 2: RECIPIENTS
+           ══════════════════════════════════════════════════════ -->
+      <section class="tab-content" id="tab-recipients">
+        <div class="recipients-wrapper">
+
+          <!-- Top 2-Column Grid -->
+          <div class="recipients-top-grid">
+
+            <!-- Import New List Card -->
+            <div class="import-card" id="recipientImportDropzone">
+              <input type="file" id="recipientSpreadsheetInput" accept=".xlsx,.xls,.csv" style="display:none;" />
+              <div class="import-icon-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="12" y1="18" x2="12" y2="12"></line>
+                  <polyline points="9 15 12 12 15 15"></polyline>
+                </svg>
+              </div>
+              <h3 class="import-title">Import New List</h3>
+              <p class="import-desc">Drag and drop your .csv or .xlsx file here to load it into the local database.</p>
+              <button class="btn-primary" id="btnBrowseSpreadsheet">+ Browse Local Files</button>
+              <div class="import-privacy-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span>Data never leaves your device</span>
+              </div>
+            </div>
+
+            <!-- Column Mapping Card -->
+            <div class="studio-card mapping-card">
+              <div>
+                <div class="mapping-card-header">
+                  <span class="mapping-card-title">Column Mapping</span>
+                  <span class="pill-npu" style="font-size:10px;">SNAPDRAGON NPU OPTIMIZED</span>
+                </div>
+
+                <div class="mapping-rows" id="mappingRowsContainer">
+                  <div class="mapping-row">
+                    <div class="mapping-field-col">
+                      <label>Certificate Field</label>
+                      <div class="mapping-field-display">
+                        <span style="font-weight:700; color:var(--text-muted);">T</span>
+                        <span>[Recipient_Name]</span>
+                      </div>
+                    </div>
+                    <div class="mapping-field-col">
+                      <label>Imported Column Source</label>
+                      <select class="prop-select mapping-source-select" data-field="Recipient_Name">
+                        <option value="Full_Name">Full_Name (Column A)</option>
+                        <option value="Email">Email_Address (Column B)</option>
+                        <option value="Course">Course_Title (Column C)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mapping-row">
+                    <div class="mapping-field-col">
+                      <label>Certificate Field</label>
+                      <div class="mapping-field-display">
+                        <span>📅</span>
+                        <span>[Issue_Date]</span>
+                      </div>
+                    </div>
+                    <div class="mapping-field-col">
+                      <label>Imported Column Source</label>
+                      <select class="prop-select mapping-source-select" data-field="Issue_Date">
+                        <option value="Completion_Date">Completion_Date (Column C)</option>
+                        <option value="Issue_Date">Issue_Date (Column D)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mapping-footer">
+                <button class="btn-auto-map" id="btnAutoMapNpu">
+                  <span>Auto-Map using NPU Intelligence</span>
+                  <span>✨</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Card: Data Preview -->
+          <div class="studio-card">
+            <div class="preview-card-header">
+              <div class="preview-header-left">
+                <span class="preview-title">Data Preview</span>
+                <span class="topbar-pill" id="previewRowBadge">Showing first 50 rows</span>
+              </div>
+
+              <div class="preview-header-right">
+                <div class="search-input-wrap">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input type="text" class="search-input" id="searchRecipientsInput" placeholder="Search locally..." />
+                </div>
+                <button class="filter-btn" title="Filter Records">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="data-table-wrapper">
+              <table class="enterprise-table" id="recipientsTable">
+                <thead>
+                  <tr>
+                    <th style="width: 40px;">
+                      <input type="checkbox" class="custom-checkbox" id="selectAllRecipients" checked />
+                    </th>
+                    <th>FULL NAME</th>
+                    <th>EMAIL ADDRESS</th>
+                    <th>COURSE TITLE</th>
+                    <th>ISSUE DATE</th>
+                    <th style="text-align:right;">ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody id="recipientsTableBody">
+                  <!-- Sample fallback rows if no file uploaded yet -->
+                  <tr>
+                    <td><input type="checkbox" class="custom-checkbox" checked /></td>
+                    <td style="font-weight:600;">Sarah Jenkins</td>
+                    <td style="color:var(--text-muted);">s.jenkins@example.com</td>
+                    <td>Advanced Machine Learning</td>
+                    <td style="color:var(--text-muted);">Oct 24, 2023</td>
+                    <td style="text-align:right;">
+                      <button class="action-edit-btn" title="Edit row">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 20h9"></path>
+                          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" class="custom-checkbox" checked /></td>
+                    <td style="font-weight:600;">Michael Chen</td>
+                    <td style="color:var(--text-muted);">m.chen@localcorp.net</td>
+                    <td>Cybersecurity Fundamentals</td>
+                    <td style="color:var(--text-muted);">Oct 22, 2023</td>
+                    <td style="text-align:right;">
+                      <button class="action-edit-btn" title="Edit row">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 20h9"></path>
+                          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" class="custom-checkbox" checked /></td>
+                    <td style="font-weight:600;">Elena Rodriguez</td>
+                    <td style="color:var(--text-muted);">e.rod@provider.com</td>
+                    <td>UX Research Masterclass</td>
+                    <td style="color:var(--text-muted);">Oct 25, 2023</td>
+                    <td style="text-align:right;">
+                      <button class="action-edit-btn" title="Edit row">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 20h9"></path>
+                          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" class="custom-checkbox" checked /></td>
+                    <td style="font-weight:600;">David Thompson</td>
+                    <td style="color:var(--text-muted);">david.t@outlook.com</td>
+                    <td>Cloud Architecture</td>
+                    <td style="color:var(--text-muted);">Oct 20, 2023</td>
+                    <td style="text-align:right;">
+                      <button class="action-edit-btn" title="Edit row">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 20h9"></path>
+                          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" class="custom-checkbox" checked /></td>
+                    <td style="font-weight:600;">Lisa Wang</td>
+                    <td style="color:var(--text-muted);">lisa.wang@gmail.com</td>
+                    <td>Python for Data Science</td>
+                    <td style="color:var(--text-muted);">Oct 26, 2023</td>
+                    <td style="text-align:right;">
+                      <button class="action-edit-btn" title="Edit row">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M12 20h9"></path>
+                          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                        </svg>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Table Pagination Footer -->
+            <div class="table-pagination-footer">
+              <span id="showingCountLbl">Showing 5 of 1,240 results</span>
+              <div class="pagination-btns">
+                <button class="btn-outline" style="padding:4px 12px; font-size:12px;" id="btnPrevPage">Previous</button>
+                <button class="btn-outline" style="padding:4px 12px; font-size:12px;" id="btnNextPage">Next</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 3: GENERATE & SEND
+           ══════════════════════════════════════════════════════ -->
+      <section class="tab-content" id="tab-generate-send">
+        <div class="generate-wrapper">
+
+          <!-- Top 2-Column Grid (2/3 + 1/3) -->
+          <div class="generate-top-grid">
+
+            <!-- Left Card (2/3): NPU Generation Status -->
+            <div class="studio-card">
+              <div class="npu-status-card-header">
+                <div class="npu-status-title-wrap">
+                  <h4>NPU Generation Status</h4>
+                  <p>Running on Snapdragon NPU (QNN) • 0.4s/cert</p>
+                </div>
+                <div class="npu-status-chips">
+                  <span class="pill-npu" style="display:flex; align-items:center; gap:6px;">
+                    <span style="width:6px; height:6px; background:var(--indigo-primary); border-radius:50%;"></span>
+                    NPU ACTIVE
+                  </span>
+                  <span class="topbar-pill" style="font-size:10.5px;">CPU IDLE</span>
+                </div>
+              </div>
+
+              <!-- Overall Progress Bar -->
+              <div class="progress-header-row">
+                <span id="batchProgressLabel">Overall Progress (1,240 / 5,000)</span>
+                <span id="batchPercentLabel">25%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill-indigo" id="batchProgressFill" style="width: 25%;"></div>
+              </div>
+
+              <!-- Live Queue List -->
+              <div class="queue-list" id="queueList">
+                <!-- Row 1: Completed -->
+                <div class="queue-row">
+                  <div class="queue-left">
+                    <div class="queue-status-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="16 9 10 15 7 12"></polyline>
+                      </svg>
+                    </div>
+                    <div class="queue-user-info">
+                      <span class="queue-name">Sarah Jenkins</span>
+                      <span class="queue-email">sarah.j@enterprise.com</span>
+                    </div>
+                  </div>
+                  <div class="queue-right">
+                    <span class="queue-duration">0.42s</span>
+                    <span class="badge-status badge-completed">COMPLETED</span>
+                  </div>
+                </div>
+
+                <!-- Row 2: Processing -->
+                <div class="queue-row">
+                  <div class="queue-left">
+                    <div class="queue-status-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-primary)" stroke-width="2.5">
+                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                      </svg>
+                    </div>
+                    <div class="queue-user-info">
+                      <span class="queue-name">Marcus Aurelius</span>
+                      <span class="queue-email">m.aurelius@history.org</span>
+                    </div>
+                  </div>
+                  <div class="queue-right">
+                    <span class="queue-duration" style="color:var(--indigo-primary);">Processing...</span>
+                    <span class="badge-status badge-processing">PROCESSING</span>
+                  </div>
+                </div>
+
+                <!-- Row 3: Pending -->
+                <div class="queue-row">
+                  <div class="queue-left">
+                    <div class="queue-status-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+                        <circle cx="12" cy="12" r="9"></circle>
+                      </svg>
+                    </div>
+                    <div class="queue-user-info">
+                      <span class="queue-name">Elena Rodriguez</span>
+                      <span class="queue-email">elena.rod@univ.edu</span>
+                    </div>
+                  </div>
+                  <div class="queue-right">
+                    <span class="queue-duration">--</span>
+                    <span class="badge-status badge-pending">PENDING</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Right Column (1/3): Batch Controls & Secure Card -->
+            <div class="generate-side-column">
+              <!-- Batch Controls Card -->
+              <div class="studio-card batch-controls-card">
+                <h4>Batch Controls</h4>
+                <div class="batch-control-buttons">
+                  <button class="btn-ctrl" id="btnPauseBatch">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="6" y="4" width="4" height="16"></rect>
+                      <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                    <span>Pause Job</span>
+                  </button>
+
+                  <button class="btn-ctrl btn-ctrl-danger" id="btnCancelBatch">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                    </svg>
+                    <span>Cancel All</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Secure Generation Purple Card -->
+              <div class="secure-card">
+                <div class="secure-header">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                  <span>SECURE GENERATION</span>
+                </div>
+                <p class="secure-desc">
+                  This generation is performing at 100% capacity on local NPU hardware. No images, templates, or recipient data were uploaded to cloud servers.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Card: Email Dispatch Log -->
+          <div class="studio-card">
+            <div class="preview-card-header">
+              <div class="preview-header-left">
+                <span class="preview-title">Email Dispatch Log</span>
+                <span class="pill-npu" style="background:#ecfdf5; color:#059669; font-size:10.5px; display:flex; align-items:center; gap:5px;">
+                  <span style="width:5px; height:5px; background:#059669; border-radius:50%;"></span>
+                  DIRECT SEND MODE
+                </span>
+              </div>
+              <span style="font-size:11.5px; color:var(--text-dim);">Sent directly from this device • No data leaves your PC.</span>
+            </div>
+
+            <div class="data-table-wrapper">
+              <table class="enterprise-table" id="dispatchLogTable">
+                <thead>
+                  <tr>
+                    <th style="width: 140px;">TIMESTAMP</th>
+                    <th style="width: 240px;">RECIPIENT</th>
+                    <th>SUBJECT</th>
+                    <th style="width: 100px; text-align:right;">STATUS</th>
+                  </tr>
+                </thead>
+                <tbody id="dispatchLogBody">
+                  <tr>
+                    <td style="font-family:var(--font-mono); color:var(--text-muted); font-size:12px;">14:22:04</td>
+                    <td style="font-family:var(--font-mono);">sarah.j@enterprise.com</td>
+                    <td>Certificate of Achievement - Sarah Jenkins</td>
+                    <td style="text-align:right; font-weight:600; color:#10b981;">Sent</td>
+                  </tr>
+                  <tr>
+                    <td style="font-family:var(--font-mono); color:var(--text-muted); font-size:12px;">14:22:01</td>
+                    <td style="font-family:var(--font-mono);">t.smith@agency.io</td>
+                    <td>Certificate of Achievement - Thomas Smith</td>
+                    <td style="text-align:right; font-weight:600; color:#10b981;">Sent</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════
+           TAB 4: SETTINGS
+           ══════════════════════════════════════════════════════ -->
+      <section class="tab-content" id="tab-settings">
+        <div class="settings-wrapper">
+
+          <div class="settings-header-desc">
+            <h3>Configuration</h3>
+            <p>Manage your local processing engine and outgoing mail settings.</p>
+          </div>
+
+          <!-- Card 1: AI Acceleration (On-Device) -->
+          <div class="studio-card">
+            <div class="ai-accel-card-header">
+              <div class="ai-accel-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-primary)" stroke-width="2">
+                  <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                  <rect x="9" y="9" width="6" height="6"></rect>
+                </svg>
+                <span>AI Acceleration (On-Device)</span>
+              </div>
+              <span class="pill-npu" style="background:#ecfdf5; color:#059669; font-size:10.5px; display:flex; align-items:center; gap:5px;">
+                <span style="width:5px; height:5px; background:#059669; border-radius:50%;"></span>
+                SNAPDRAGON NPU ACTIVE
+              </span>
+            </div>
+
+            <div class="ai-module-list">
+              <!-- Module 1: EasyOCR Engine -->
+              <div class="ai-module-row">
+                <div class="ai-mod-left">
+                  <div class="ai-mod-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 7V4h3"></path>
+                      <path d="M20 7V4h-3"></path>
+                      <path d="M4 17v3h3"></path>
+                      <path d="M20 17v3h-3"></path>
+                    </svg>
+                  </div>
+                  <div class="ai-mod-text">
+                    <h5>EasyOCR Engine</h5>
+                    <p>v2.4.1 • Field Detection &amp; Text Extraction</p>
+                  </div>
+                </div>
+                <div class="ai-mod-right">
+                  <span class="ai-mod-runtime">Loaded (Snapdragon NPU)</span>
+                  <span class="pill-npu" style="background:#ecfdf5; color:#059669; font-size:10.5px;">READY</span>
+                </div>
+              </div>
+
+              <!-- Module 2: Stable Diffusion -->
+              <div class="ai-module-row">
+                <div class="ai-mod-left">
+                  <div class="ai-mod-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94"></path>
+                    </svg>
+                  </div>
+                  <div class="ai-mod-text">
+                    <h5>Stable Diffusion</h5>
+                    <p>v1.5-Turbo • Background Generation</p>
+                  </div>
+                </div>
+                <div class="ai-mod-right">
+                  <span class="ai-mod-runtime">Loaded (Snapdragon NPU)</span>
+                  <span class="pill-npu" style="background:#ecfdf5; color:#059669; font-size:10.5px;">READY</span>
+                </div>
+              </div>
+
+              <!-- Module 3: Genie LLM -->
+              <div class="ai-module-row">
+                <div class="ai-mod-left">
+                  <div class="ai-mod-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </div>
+                  <div class="ai-mod-text">
+                    <h5>Genie LLM (Phi-3-mini)</h5>
+                    <p>v1.0.0 • Content &amp; Template Logic</p>
+                  </div>
+                </div>
+                <div class="ai-mod-right">
+                  <span class="ai-mod-runtime">Loaded (Snapdragon NPU)</span>
+                  <span class="pill-npu" style="background:#ecfdf5; color:#059669; font-size:10.5px;">READY</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Direct Mail SMTP Settings -->
+          <div class="studio-card">
+            <div class="smtp-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-primary)" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <span>Direct Mail SMTP Settings</span>
+            </div>
+
+            <div class="smtp-form-grid">
+              <div class="smtp-row">
+                <div>
+                  <label class="prop-label" style="display:block; margin-bottom:4px;">SMTP Host</label>
+                  <input type="text" class="prop-input" id="cfgSmtpHost" placeholder="e.g. smtp.office365.com" value="smtp.office365.com" />
+                </div>
+                <div>
+                  <label class="prop-label" style="display:block; margin-bottom:4px;">Port</label>
+                  <input type="number" class="prop-input" id="cfgSmtpPort" placeholder="587" value="587" />
+                </div>
+              </div>
+
+              <div class="smtp-row two-col">
+                <div>
+                  <label class="prop-label" style="display:block; margin-bottom:4px;">Username / Email Address</label>
+                  <input type="email" class="prop-input" id="cfgSmtpUser" placeholder="account@domain.com" value="account@domain.com" />
+                </div>
+                <div>
+                  <label class="prop-label" style="display:block; margin-bottom:4px;">Password / App Key</label>
+                  <input type="password" class="prop-input" id="cfgSmtpPass" placeholder="•••••••••••" value="secureAppKey123" />
+                </div>
+              </div>
+            </div>
+
+            <div class="private-sending-banner">
+              <div class="private-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--indigo-primary)" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <div>
+                  <h5>Private Sending</h5>
+                  <p>Imprint connects directly to your SMTP server from this device. Your credentials never leave your PC.</p>
+                </div>
+              </div>
+              <button class="btn-outline" id="btnTestSmtpConnection" style="font-size:12px;">TEST CONNECTION</button>
+            </div>
+          </div>
+
+          <!-- Bottom 2 Cards Grid -->
+          <div class="settings-bottom-grid">
+            <!-- Local Storage Path -->
+            <div class="studio-card">
+              <div class="storage-card-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Local Storage Path</span>
+              </div>
+              <div class="storage-input-wrap">
+                <input type="text" class="storage-input" readonly value="C:\Users\User\AppData\Local\Imprint\Data" />
+                <button class="btn-outline" style="padding:7px 10px;" title="Browse Folder">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </button>
+              </div>
+              <span class="storage-hint">All templates and recipient logs are stored here for 100% privacy.</span>
+            </div>
+
+            <!-- Check for Updates -->
+            <div class="studio-card">
+              <div class="update-card-header">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                <span>Check for Updates</span>
+              </div>
+              <div class="update-content-row">
+                <span class="update-version">Latest version: v1.0.4</span>
+                <button class="btn-outline" style="font-size:12px; font-weight:700;">UPDATE NOW</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+
+  <script src="js/studio.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 240" fill="none">
+  <!-- Brand background option (optional/removable or transparent) -->
+  <g transform="translate(10, 7)">
+    <rect width="83" height="225" rx="8" fill="#181644"/>
+    <polygon points="41.5,27 27,49 55,49" fill="#FFFFFF"/>
+    <rect x="27" y="59" width="28" height="128" rx="1" fill="#FFFFFF"/>
+  </g>
+  <text x="130" y="145" font-family="'Space Grotesk', 'Inter', -apple-system, sans-serif" font-size="96" font-weight="600" fill="#FFFFFF" letter-spacing="-1">Imprint</text>
+</svg>

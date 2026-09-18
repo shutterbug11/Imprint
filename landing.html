@@ -1,3 +1,4 @@
+<!-- Copy of index.html for direct /landing.html access -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Imprint — Developer-Centric Credential &amp; Workflow Synthesis</title>
   
-  <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="alternate icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon-branded.png" />
 
-  <!-- Google Fonts: Inter (with optical size / Inter Display) & Geist Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet" />
@@ -19,7 +18,6 @@
 </head>
 <body>
 
-  <!-- ── Header (Absolute, top: 38px, px: 56px) ────────── -->
   <header class="site-header">
     <div class="header-brand">
       <a href="/" style="display:flex; align-items:center; gap:12px;">
@@ -32,7 +30,6 @@
       </a>
     </div>
 
-    <!-- Desktop Nav (Hidden on Mobile) -->
     <nav class="header-nav" aria-label="Primary Navigation">
       <a href="#overview" class="nav-link">Overview</a>
       <a href="#event-stream" class="nav-link">Event Stream</a>
@@ -41,7 +38,6 @@
       <a href="/app" class="nav-link">Studio</a>
     </nav>
 
-    <!-- Header Actions -->
     <div class="header-actions">
       <a href="/app" class="btn-square-outline btn-header-studio" title="Launch Certificate Studio">
         <span>Studio</span>
@@ -51,7 +47,6 @@
         </svg>
       </a>
 
-      <!-- Primary CTA: 'Book a demo' (background: #fff, text: #121212, padding: 8px 12px) featuring diagonal arrow icon -->
       <a href="#demo" class="btn-square btn-header-demo" id="bookDemoBtn">
         <span>Book a demo</span>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -60,7 +55,6 @@
         </svg>
       </a>
 
-      <!-- Mobile Hamburger Toggle -->
       <button class="mobile-menu-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -71,7 +65,6 @@
     </div>
   </header>
 
-  <!-- ── Mobile Menu Overlay ───────────────────────────── -->
   <div class="mobile-menu-overlay" id="mobileMenu">
     <div class="mobile-menu-header">
       <div class="header-brand">
@@ -97,11 +90,9 @@
     </div>
   </div>
 
-  <!-- ── Hero Section (100svh Canvas Frame) ─────────────── -->
   <section class="hero-section" id="overview">
     <div class="hero-media-wrapper">
       <img src="assets/hero-bg.jpg" alt="Dark Tech Monolith" class="hero-bg-img" />
-      <!-- Spec Scrim: linear-gradient(to top, rgba(0,0,0,0.76) 0%, rgba(0,0,0,0) 93.785%) -->
       <div class="hero-scrim"></div>
     </div>
 
@@ -117,17 +108,14 @@
         </div>
       </div>
 
-      <!-- Headline: class 'headline-fluid' (32px to 60px) in Inter Display, white, max-width 752px -->
       <h1 class="headline-fluid">
         High-precision credential synthesis with autonomic trace verification.
       </h1>
 
-      <!-- Subtext: font-size 16px, color #e7e7e7 -->
       <p class="hero-subtext">
         Imprint merges Qualcomm AI Hub EasyOCR neural detection with deterministic batch vector rendering. Generate thousands of verified high-res certificates with live per-row telemetry, zero layout shift, and instant SMTP delivery.
       </p>
 
-      <!-- Large CTA: btn-square, font-size 20px, with 12px diagonal arrow icon -->
       <div class="hero-ctas">
         <a href="/app" class="btn-square btn-hero-primary">
           <span>Launch Studio</span>
@@ -144,10 +132,8 @@
     </div>
   </section>
 
-  <!-- ── Main Content Container ────────────────────────── -->
   <main class="main-wrapper">
 
-    <!-- ── Event Stream Table Section ───────────────────── -->
     <section class="event-stream-container" id="event-stream">
       <div class="section-eyebrow">
         <div class="v-chip chip-active">
@@ -158,9 +144,7 @@
       <h2 class="section-title">Event Stream Execution Pipeline</h2>
       <p class="section-desc">// REAL-TIME SPAN OFFSET ANALYSIS &amp; TELEMETRY RUNTIME</p>
 
-      <!-- Card Table Layout: #0a0a0a, 1px ring border rgba(255,255,255,0.145) -->
       <div class="card-tech stream-card">
-        <!-- Header: trace ID and duration chips -->
         <div class="stream-card-header">
           <div class="stream-trace-info">
             <span class="trace-label">TRACE ID</span>
@@ -183,9 +167,7 @@
           </div>
         </div>
 
-        <!-- Split View: Left sidebar (240px), Right table -->
         <div class="stream-split-view">
-          <!-- Left Sidebar (240px) with scrollable list of event IDs -->
           <aside class="stream-sidebar">
             <div class="sidebar-heading">EVENT RUNTIMES</div>
             <ul class="event-id-list" id="eventIdList">
@@ -220,7 +202,6 @@
             </ul>
           </aside>
 
-          <!-- Right Table: SPAN, START, DURATION -->
           <div class="stream-table-wrapper">
             <table class="stream-table">
               <thead>
@@ -231,7 +212,6 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- Row 1 -->
                 <tr class="stream-row" data-row="0">
                   <td>
                     <div class="stream-span-name">
@@ -240,7 +220,6 @@
                     </div>
                   </td>
                   <td>
-                    <!-- Timeline Progress Bar: w-full, h-1.5, bg-transparent. Inner bar absolute, height 100%, rounded-sm (2px) -->
                     <div class="timeline-container">
                       <div class="timeline-bar" style="left: 0%; width: 28%;"></div>
                     </div>
@@ -248,7 +227,6 @@
                   <td><span class="duration-val">68.2ms</span></td>
                 </tr>
 
-                <!-- Row 2 -->
                 <tr class="stream-row" data-row="1">
                   <td>
                     <div class="stream-span-name">
@@ -264,7 +242,6 @@
                   <td><span class="duration-val">42.5ms</span></td>
                 </tr>
 
-                <!-- Row 3 (Active Focus) -->
                 <tr class="stream-row active" data-row="2">
                   <td>
                     <div class="stream-span-name">
@@ -280,7 +257,6 @@
                   <td><span class="duration-val" style="color:var(--accent-blue);">106.1ms</span></td>
                 </tr>
 
-                <!-- Row 4 -->
                 <tr class="stream-row" data-row="3">
                   <td>
                     <div class="stream-span-name">
@@ -296,7 +272,6 @@
                   <td><span class="duration-val">28.9ms</span></td>
                 </tr>
 
-                <!-- Row 5 -->
                 <tr class="stream-row" data-row="4">
                   <td>
                     <div class="stream-span-name">
@@ -318,7 +293,6 @@
       </div>
     </section>
 
-    <!-- ── Bento Feature Grid (3-Column) ────────────────── -->
     <section class="bento-section" id="bento-features">
       <div class="section-eyebrow">
         <div class="v-chip chip-pass">
@@ -330,7 +304,6 @@
       <p class="section-desc">// HIGH-CONTRAST VERIFICATION &amp; BATCH SYNTHESIS CONTROLS</p>
 
       <div class="bento-grid">
-        <!-- Card 1 (Regression): vertical list of status rows with PASS/FAIL chips and % changes -->
         <div class="card-tech bento-card">
           <div class="bento-card-header">
             <div class="bento-tag">MODULE // 01</div>
@@ -351,7 +324,7 @@
               </div>
 
               <div class="regression-row">
-                <span class="reg-label">kerning_kerning_glyph</span>
+                <span class="reg-label">kerning_glyph_cache</span>
                 <div class="reg-right">
                   <div class="v-chip chip-pass">
                     <span class="chip-dot"></span>
@@ -386,7 +359,6 @@
           </div>
         </div>
 
-        <!-- Card 2 (Failure Clustering): stacked horizontal bar charts for error metrics -->
         <div class="card-tech bento-card">
           <div class="bento-card-header">
             <div class="bento-tag">MODULE // 02</div>
@@ -446,7 +418,6 @@
           </div>
         </div>
 
-        <!-- Card 3 (Version Replay): code-diff view with green/blue side-borders for added/modified lines -->
         <div class="card-tech bento-card">
           <div class="bento-card-header">
             <div class="bento-tag">MODULE // 03</div>
@@ -485,7 +456,6 @@
       </div>
     </section>
 
-    <!-- ── Metrics Grid (4-Column Border-Connected) ─────── -->
     <section class="metrics-section" id="metrics">
       <div class="section-eyebrow">
         <div class="v-chip chip-active">
@@ -496,9 +466,7 @@
       <h2 class="section-title">Deterministic Performance Metrics</h2>
       <p class="section-desc">// BENCHMARKED ACROSS ENTERPRISE BATCH DISPATCHES</p>
 
-      <!-- 4-Column border-connected grid: 56px Geist tracking -3.36px, unit label, #999999 subline -->
       <div class="metrics-grid">
-        <!-- Cell 1 -->
         <div class="metric-cell">
           <div class="metric-top">
             <span class="metric-num">99.98</span>
@@ -507,7 +475,6 @@
           <p class="metric-subline">Synthesis layout precision across 4.2M generated vector credentials.</p>
         </div>
 
-        <!-- Cell 2 -->
         <div class="metric-cell">
           <div class="metric-top">
             <span class="metric-num">42</span>
@@ -516,7 +483,6 @@
           <p class="metric-subline">Average end-to-end NPU EasyOCR placeholder bounding box inference.</p>
         </div>
 
-        <!-- Cell 3 -->
         <div class="metric-cell">
           <div class="metric-top">
             <span class="metric-num">1.2</span>
@@ -525,7 +491,6 @@
           <p class="metric-subline">Recipients dispatched via asynchronous concurrent SMTP queue per hour.</p>
         </div>
 
-        <!-- Cell 4 -->
         <div class="metric-cell">
           <div class="metric-top">
             <span class="metric-num">0.00</span>
@@ -536,7 +501,6 @@
       </div>
     </section>
 
-    <!-- ── Studio Direct Callout Banner ─────────────────── -->
     <section class="card-tech studio-callout">
       <div class="callout-content">
         <div class="v-chip chip-pass" style="margin-bottom:12px;">
@@ -561,7 +525,6 @@
 
   </main>
 
-  <!-- ── Footer ────────────────────────────────────────── -->
   <footer class="site-footer">
     <div class="footer-left">
       <svg width="12" height="30" viewBox="0 0 83 225" fill="none" aria-label="Imprint Logo">
@@ -583,9 +546,7 @@
     </div>
   </footer>
 
-  <!-- ── Interactive Micro-Scripts ─────────────────────── -->
   <script>
-    // Event Stream Interactivity: clicking an event in the sidebar focuses the corresponding span row
     const eventItems = document.querySelectorAll('.event-id-item');
     const streamRows = document.querySelectorAll('.stream-row');
 
@@ -609,7 +570,6 @@
       });
     });
 
-    // Mobile Menu Toggle
     const mobileToggle = document.getElementById('mobileToggle');
     const mobileClose = document.getElementById('mobileClose');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -636,7 +596,6 @@
       });
     }
 
-    // Book Demo button interaction
     const bookDemoBtn = document.getElementById('bookDemoBtn');
     if (bookDemoBtn) {
       bookDemoBtn.addEventListener('click', (e) => {

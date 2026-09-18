@@ -1,4 +1,4 @@
-# Smartomate — Certificate Generator & Bulk Mailer
+# Imprint — Certificate Generator & Bulk Mailer
 
 A browser-based tool for generating personalised certificates from a template image and an Excel spreadsheet, with built-in bulk email delivery via SMTP.
 
@@ -8,7 +8,8 @@ A browser-based tool for generating personalised certificates from a template im
 
 ## Features
 
-- **Drag-and-drop certificate canvas** — upload any PNG/JPG/WebP as your certificate background and visually position text fields on it
+- **Smart Auto-Placement (Qualcomm EasyOCR)** — automatically detects printed placeholder lines ("Name:", dotted underlines, blank central zones) using Qualcomm AI Hub's pre-optimized EasyOCR ONNX detector with Snapdragon X Elite / X Plus NPU acceleration via `QNNExecutionProvider` (with CPU fallback), automatically positioning the recipient name field and scaling font size to box height
+- **Drag-and-drop certificate canvas** — upload any PNG/JPG/WebP as your certificate background and visually position text fields on it (manual drag-and-drop remains as a full override)
 - **Excel / CSV import** — every column becomes a draggable field; supports `.xlsx`, `.xls`, and `.csv`
 - **Rich typography** — 20+ fonts (handwriting, serif, sans-serif), size, color, bold/italic, alignment, text transform, and drop shadow
 - **Per-row overrides** — click any row in the data table to preview and fine-tune font/position for that specific recipient without affecting others
@@ -24,21 +25,34 @@ A browser-based tool for generating personalised certificates from a template im
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) v16 or later
+- [Node.js](https://nodejs.org/) v18 or later
+- [Python](https://www.python.org/) 3.10+ (for Qualcomm EasyOCR AI service)
 
 ### Installation
 
-```bash
-git clone https://github.com/shutterbug11/Smartomate.git
-cd Smartomate
-npm install
-```
+1. **Clone & install Node dependencies:**
+   ```bash
+   git clone https://github.com/shutterbug11/Smartomate.git
+   cd Smartomate
+   npm install
+   ```
+
+2. **Install Python AI service dependencies:**
+   ```bash
+   pip install -r ai-service/requirements.txt
+   ```
 
 ### Run
 
-```bash
-npm start
-```
+1. **Start the AI service (in one terminal):**
+   ```bash
+   uvicorn main:app --port 8000 --app-dir ai-service
+   ```
+
+2. **Start the Web server (in another terminal):**
+   ```bash
+   npm start
+   ```
 
 Then open **http://localhost:3001** in your browser.
 
@@ -144,13 +158,14 @@ Rows without an email address are skipped with a warning.
 ## Project Structure
 
 ```
-Smartomate/
+Imprint/
 ├── index.html        # Single-page UI
 ├── server.js         # Express server — SMTP proxy (POST /api/send-email, POST /api/test-smtp)
 ├── js/
 │   └── app.js        # All client-side logic
 ├── css/
 │   └── style.css     # Dark-theme stylesheet
+├── assets/           # Logo, mark, and favicons
 └── package.json
 ```
 

@@ -752,6 +752,21 @@
       columnChipsEl.appendChild(chip);
     });
     columnFieldsSection.style.display = '';
+
+    // If an auto-placed 'Name' placeholder field already exists, bind it to the Excel name column
+    if (state.fields.length > 0) {
+      const nameField = state.fields.find(f => f.key.toLowerCase() === 'name');
+      if (nameField) {
+        const matchingCol = columns.find(c => /name|recipient|student|participant|attendee/i.test(c));
+        if (matchingCol && matchingCol !== nameField.key) {
+          nameField.key = matchingCol;
+          if (state.activeFieldIdx >= 0 && state.fields[state.activeFieldIdx] === nameField) {
+            activeFieldLabel.textContent = matchingCol;
+          }
+          render();
+        }
+      }
+    }
   }
 
   btnClearExcel.addEventListener('click', () => {
@@ -791,6 +806,15 @@
   canvas.addEventListener('drop', e => {
     e.preventDefault();
     canvas.classList.remove('drop-over');
+
+    // If a template image file is dropped directly on the canvas
+    const imageFile = [...(e.dataTransfer.files || [])].find(f => f.type && f.type.startsWith('image/'));
+    if (imageFile) {
+      loadCertificateImage(imageFile);
+      return;
+    }
+
+    // Manual drag-and-drop override for column chips
     const key = e.dataTransfer.getData('text/plain');
     if (!key || !state.excelColumns.includes(key)) return;
 
@@ -1486,6 +1510,102 @@
     document.getElementById('sidebar').style.display = '';
   }
 
+  // ── Smart Auto-Placement (Qualcomm EasyOCR) ────────────────────────
+  async function detectAndAutoPlaceFields() {
+    if (!state.image || !state.naturalW || !state.naturalH) return;
+
+    const aiBadge = document.getElementById('aiPlacementStatus');
+    if (aiBadge) {
+      aiBadge.innerHTML = '<span class="ai-pulse-dot"></span> Analyzing template (EasyOCR)...';
+      aiBadge.className = 'ai-status-badge analyzing';
+    }
+
+    // Convert template image to base64
+    let base64Image = '';
+    try {
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = state.naturalW;
+      tempCanvas.height = state.naturalH;
+      const tctx = tempCanvas.getContext('2d');
+      tctx.drawImage(state.image, 0, 0);
+      base64Image = tempCanvas.toDataURL('image/png');
+    } catch (err) {
+      console.warn('Could not extract image data for auto-placement:', err);
+      return;
+    }
+
+    try {
+      const resp = await fetch(`${API_BASE}/api/detect-fields`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: base64Image })
+      });
+
+      if (!resp.ok) {
+        throw new Error(`AI service responded with status ${resp.status}`);
+      }
+
+      const data = await resp.json();
+      if (!data || !data.success || !data.candidate) {
+        if (aiBadge) {
+          aiBadge.textContent = 'Auto-placement: No blank field detected';
+          aiBadge.className = 'ai-status-badge';
+        }
+        return;
+      }
+
+      const cand = data.candidate;
+
+      // Select target field key (matches Excel columns if already uploaded, or default to "Name")
+      let targetKey = 'Name';
+      if (state.excelColumns && state.excelColumns.length > 0) {
+        const matchingCol = state.excelColumns.find(c => /name|recipient|student|participant|attendee/i.test(c));
+        if (matchingCol) targetKey = matchingCol;
+        else targetKey = state.excelColumns[0];
+      }
+
+      // Scaled font size = box height (in canvas pixels)
+      const scaledSize = cand.fontSize || Math.round((cand.height || 0.065) * state.naturalH);
+
+      // Check if this field is already placed on the canvas
+      const existingIdx = state.fields.findIndex(f => f.key.toLowerCase() === targetKey.toLowerCase());
+      if (existingIdx >= 0) {
+        state.fields[existingIdx].x = cand.x;
+        state.fields[existingIdx].y = cand.y;
+        state.fields[existingIdx].size = scaledSize;
+        selectField(existingIdx);
+      } else {
+        const t = defaultTypography();
+        t.size = scaledSize;
+        state.fields.push({
+          key: targetKey,
+          x: cand.x,
+          y: cand.y,
+          ...t,
+          _bbox: null
+        });
+        selectField(state.fields.length - 1);
+      }
+
+      updateBulkBtn();
+      render();
+
+      const providerLabel = data.provider === 'QNNExecutionProvider' ? 'Snapdragon NPU' : 'EasyOCR';
+      if (aiBadge) {
+        aiBadge.innerHTML = `✓ Auto-placed "${esc(targetKey)}" (${providerLabel})`;
+        aiBadge.className = 'ai-status-badge ready';
+      }
+
+      toast(`⚡ Auto-placed "${targetKey}" (scaled ${scaledSize}px font via ${providerLabel}). Drag to adjust anytime.`, 'success');
+    } catch (err) {
+      console.warn('Smart auto-placement error:', err.message);
+      if (aiBadge) {
+        aiBadge.textContent = 'Auto-placement: Manual drag ready';
+        aiBadge.className = 'ai-status-badge';
+      }
+    }
+  }
+
   function loadCertificateImage(file) {
     const url = URL.createObjectURL(file);
     const img = new Image();
@@ -1498,6 +1618,8 @@
       render();
       URL.revokeObjectURL(url);
       toast(`Certificate loaded — ${state.naturalW}×${state.naturalH}px`, 'success');
+      // Trigger Smart Auto-Placement
+      detectAndAutoPlaceFields();
     };
     img.onerror = () => {
       URL.revokeObjectURL(url);
@@ -1541,6 +1663,7 @@
       canvas.height  = state.naturalH;
       applyZoom();
       render();
+      detectAndAutoPlaceFields();
     };
     img.onerror = () => { toast('Could not load assets/template.png', 'warning'); };
     img.src = 'assets/template.png';
