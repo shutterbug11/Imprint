@@ -32,8 +32,8 @@ A browser-based tool for generating personalised certificates from a template im
 
 1. **Clone & install Node dependencies:**
    ```bash
-   git clone https://github.com/shutterbug11/Smartomate.git
-   cd Smartomate
+   git clone https://github.com/shutterbug11/Imprint.git
+   cd Imprint
    npm install
    ```
 

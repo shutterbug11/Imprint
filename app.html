@@ -144,6 +144,14 @@
           <!-- Contextual Action Buttons -->
           <div id="tabActionsTemplateStudio" style="display:flex; align-items:center; gap:8px;">
             <button class="btn-secondary" id="btnPreviewToggle">Preview</button>
+            <button class="btn-secondary" id="btnDownloadSingle" title="Download Single PNG Certificate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export PNG</span>
+            </button>
             <button class="btn-primary" id="btnSaveTemplate">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
@@ -165,8 +173,14 @@
             </button>
           </div>
 
-          <div id="tabActionsGenerateSend" style="display:none;">
-            <button class="btn-primary" id="btnExportLog">
+          <div id="tabActionsGenerateSend" style="display:none; align-items:center; gap:8px;">
+            <button class="btn-primary" id="btnRunBatchGen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span>Start Batch Generation &amp; ZIP</span>
+            </button>
+            <button class="btn-secondary" id="btnExportLog">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -211,7 +225,8 @@
               </div>
             </div>
 
-            <div class="ai-detect-right">
+            <div class="ai-detect-right" style="display:flex; align-items:center; gap:8px;">
+              <button class="btn-pill-action" id="btnLoadTestCert" style="background:#4338CA; border-color:#4338CA; color:#ffffff; font-weight:600;" title="Load Hackathon Test Certificate">Load Test Certificate</button>
               <span class="pill-npu">EasyOCR • Snapdragon NPU</span>
               <button class="btn-pill-action" id="runEasyOcrBtn">Run Detection</button>
             </div>

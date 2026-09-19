@@ -195,9 +195,16 @@ class QualcommEasyOCRDetector:
         for rel_y, count in enumerate(horizontal_sums):
             if count >= min_line_width:
                 abs_y = y_start + rel_y
-                line_candidates.append(abs_y)
+        # Filter out line candidates that overlap with detected text boxes (e.g. letters in headers)
+        def overlaps_text(y_val: int) -> bool:
+            for b in text_boxes:
+                if (b["y_min"] - 4) <= y_val <= (b["y_max"] + 4):
+                    return True
+            return False
 
-        # If a distinct printed underline/dotted line was found
+        line_candidates = [y for y in line_candidates if not overlaps_text(y)]
+
+        # If a distinct printed underline/dotted line was found outside of text regions
         if line_candidates:
             # Cluster adjacent lines
             clusters = []
@@ -211,11 +218,10 @@ class QualcommEasyOCRDetector:
             if curr:
                 clusters.append(int(np.median(curr)))
 
-            # Pick the line closest to vertical center (around y=0.48 - 0.54)
-            best_line_y = min(clusters, key=lambda ly: abs(ly / orig_h - 0.50))
+            # Pick the line closest to vertical center (around y=0.45 - 0.65)
+            best_line_y = min(clusters, key=lambda ly: abs(ly / orig_h - 0.52))
 
             # The text baseline sits right on/above the underline
-            # Estimated box height is typical certificate recipient font height (e.g. 5-7% of certificate height)
             est_box_height = max(40.0, min(140.0, orig_h * 0.065))
             norm_y = (best_line_y - (est_box_height * 0.45)) / float(orig_h)
 
@@ -226,38 +232,34 @@ class QualcommEasyOCRDetector:
                 "width": 0.55,
                 "height": float(est_box_height / orig_h),
                 "fontSize": int(round(est_box_height)),
-                "confidence": 0.94,
+                "confidence": 0.95,
                 "heuristic": "printed_underline_detected",
                 "matched_line_y": int(best_line_y)
             }
 
         # If no explicit physical line, analyze text box layout from the detector
-        # In standard certificates:
-        # Title/Header is in top 10%-35%
-        # Date / Signatures are in bottom 70%-95%
-        # Recipient Name is in the primary central blank band (around 45%-54%)
-        upper_boxes = [b for b in text_boxes if b["center_y"] < 0.42]
-        lower_boxes = [b for b in text_boxes if b["center_y"] > 0.58]
+        # Find prompt box (e.g. "This award is presented to", "certify that") in top 30-55%
+        upper_prompt_boxes = [b for b in text_boxes if b["center_y"] <= 0.53]
+        last_upper_box = max(upper_prompt_boxes, key=lambda b: b["y_max"]) if upper_prompt_boxes else None
 
-        upper_bound_y = max([b["y_max"] for b in upper_boxes]) if upper_boxes else (orig_h * 0.36)
-        lower_bound_y = min([b["y_min"] for b in lower_boxes]) if lower_boxes else (orig_h * 0.68)
+        upper_bound_y = last_upper_box["y_max"] if last_upper_box else (orig_h * 0.40)
+        # Expected lower bound for body text ("for outstanding performance...") or signatures
+        lower_bound_y = orig_h * 0.68
 
         gap_center_y = (upper_bound_y + lower_bound_y) / 2.0
         gap_height = lower_bound_y - upper_bound_y
 
-        # Scale font size based on available gap / template height
-        # Typically 50%-70% of gap height or ~6.5% of total certificate height
-        est_font_size = max(48.0, min(120.0, min(gap_height * 0.55, orig_h * 0.065)))
+        est_font_size = max(46.0, min(110.0, gap_height * 0.45))
         norm_y = gap_center_y / float(orig_h)
 
         return {
             "field": "Name",
             "x": 0.5,
             "y": float(max(0.2, min(0.8, norm_y))),
-            "width": 0.6,
+            "width": 0.55,
             "height": float(est_font_size / orig_h),
             "fontSize": int(round(est_font_size)),
-            "confidence": 0.88,
-            "heuristic": "central_blank_band_detected",
-            "gap": {"top": float(upper_bound_y), "bottom": float(lower_bound_y)}
+            "confidence": 0.92,
+            "heuristic": "central_blank_zone_detected",
+            "gap_y_range": [int(upper_bound_y), int(lower_bound_y)]
         }
